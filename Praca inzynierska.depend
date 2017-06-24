@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1461614857 source:c:\users\wojtek\documents\code blocks\praca inzynierska\macierze.c
+
+1467745773 source:c:\users\wojtek\documents\code blocks\praca inzynierska\azymut.c
+	<math.h>
+	<conio.h>
+
+1479476975 source:c:\users\wojtek\documents\code blocks\praca inzynierska\st. swobodne.c
+	<stdio.h>
+	<math.h>
+	<conio.h>
+
+1478187164 source:c:\users\wojtek\documents\code blocks\praca inzynierska\zabezp cyfr.c
+	<stdio.h>
+
+1467753753 source:c:\users\wojtek\documents\code blocks\praca inzynierska\opcje wyboru.c
+	<math.h>
+	<conio.h>
+	<stdlib.h>
+
+1478187279 source:c:\users\wojtek\documents\code blocks\praca inzynierska\klasy.c
+	<stdio.h>
+
+1470951482 source:c:\users\wojtek\documents\code blocks\praca inzynierska\zabezp cyfr2.c
+	<stdio.h>
+
+1478378794 source:c:\users\wojtek\documents\code blocks\praca inzynierska\problem ze wspol.c
+	<stdio.h>
+	<math.h>
+

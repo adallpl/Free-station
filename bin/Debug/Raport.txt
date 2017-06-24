@@ -1,0 +1,10 @@
+
+		OBLICZENIE WSPOLRZEDNYCH PUNKTU POMIERZONEGO METODA STANOWISKA SWOBODNEGO
+
+Nr punktu: p	X: -1.#IO	Y: 1.#QO
+B³ad punktu po wyrownaniu: +1.#QNB
+
+ Nr	    X		    Y		 Kierunek	Odleglosc	 Blad kata	 Blad odleglosci
+ o	 5.00	 5.00	 5.0000		 5.00		 0.0020		 0.02
+ l	 5.00	 5.00	 0.0000	 5.00		 0.0020		 0.02
+ k	 5.00	 5.00	 5.0000	 5.00		 0.0020		 0.02

@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>C:\Users\Wojtek\Documents\Code Blocks\Praca inzynierska\St. swobodne.c</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="Code::Blocks Exporter plugin" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.style11 { color: #000000; background-color: #FFFFFF; }
+.style64 { color: #C8C8C8; }
+.style72 { color: #C8C8C8; }
+.style75 { color: #C8C8C8; }
+.style1 { color: #A0A0A0; }
+.style23 { color: #A0A0A0; }
+.style65 { color: #A0A0A0; }
+.style87 { color: #A0A0A0; }
+.style2 { color: #BEBEE6; }
+.style66 { color: #BEBEE6; }
+.style3 { color: #8080FF; font-weight: bold; }
+.style24 { color: #8080FF; font-weight: bold; }
+.style67 { color: #8080FF; font-weight: bold; }
+.style88 { color: #8080FF; font-weight: bold; }
+.style15 { color: #8080FF; font-weight: bold; }
+.style79 { color: #8080FF; font-weight: bold; }
+.style17 { color: #008080; }
+.style81 { color: #008080; }
+.style18 { color: #800000; }
+.style82 { color: #800000; }
+.style4 { color: #F000F0; }
+.style68 { color: #F0C8F0; }
+.style5 { color: #0000A0; font-weight: bold; }
+.style69 { color: #8787C8; font-weight: bold; }
+.style16 { color: #00A000; font-weight: bold; }
+.style80 { color: #9AC89A; font-weight: bold; }
+.style19 { color: #BE00BE; font-weight: bold; }
+.style83 { color: #BE89BE; font-weight: bold; }
+.style6 { color: #0000FF; }
+.style12 { color: #0000FF; }
+.style20 { color: #0000FF; }
+.style70 { color: #BEBEFF; }
+.style76 { color: #BEBEFF; }
+.style7 { color: #E0A000; }
+.style71 { color: #E0CE9F; }
+.style8 { color: #000000; }
+.style9 { color: #00A000; }
+.style73 { color: #84A084; }
+.style10 { color: #FF0000; }
+.style74 { color: #FFC8C8; }
+.style34 { color: #000000; background-color: #80FFFF; font-weight: bold; }
+.style35 { color: #FFFFFF; background-color: #FF0000; font-weight: bold; }
+.style50 { color: #404080; font-style: italic; }
+.style114 { color: #8585AC; font-style: italic; }
+--></style></head>
+<body>
+<pre>
+<code><span style="font: 8pt Courier New;"><span class="style9">#include&lt;stdio.h&gt;
+#include&lt;math.h&gt;
+#include&lt;conio.h&gt;
+#define RO 636620
+#define RAD (M_PI/200)
+#define RAD2 (200/M_PI)
+#define RAPORT "Raport.txt"
+</span><span class="style5">double </span><span class="style11">X</span><span class="style10">, </span><span class="style11">Y</span><span class="style10">, </span><span class="style11">Xprz</span><span class="style10">, </span><span class="style11">Yprz</span><span class="style10">, </span><span class="style11">deltX</span><span class="style10">, </span><span class="style11">deltY</span><span class="style10">;
+</span><span class="style5">double </span><span class="style11">AzPA</span><span class="style10">, </span><span class="style11">AzPB</span><span class="style10">, </span><span class="style11">AzPC</span><span class="style10">;
+</span><span class="style5">double </span><span class="style11">Wspolrzedne</span><span class="style10">(</span><span class="style5">double </span><span class="style11">Delta_Wsp_prz</span><span class="style10">, </span><span class="style5">double </span><span class="style11">Wspol_Poprawka</span><span class="style10">);
+</span><span class="style5">double </span><span class="style11">Azymut</span><span class="style10">(</span><span class="style5">double </span><span class="style11">del_Y</span><span class="style10">, </span><span class="style5">double </span><span class="style11">del_X</span><span class="style10">);
+
+</span><span class="style2">//funkcje wykonawcze
+</span><span class="style5">double </span><span class="style11">Wspolrzedne</span><span class="style10">(</span><span class="style5">double </span><span class="style11">Delta_Wsp_prz</span><span class="style10">, </span><span class="style5">double </span><span class="style11">Wspol_Poprawka</span><span class="style10">)
+{
+    </span><span class="style5">double </span><span class="style11">wynik</span><span class="style10">;
+    </span><span class="style11">wynik</span><span class="style10">=</span><span class="style11">Delta_Wsp_prz</span><span class="style10">+</span><span class="style11">Wspol_Poprawka</span><span class="style10">;
+    </span><span class="style5">return </span><span class="style11">wynik</span><span class="style10">;
+}
+</span><span class="style5">double </span><span class="style11">Azymut</span><span class="style10">(</span><span class="style5">double </span><span class="style11">del_Y</span><span class="style10">, </span><span class="style5">double </span><span class="style11">del_X</span><span class="style10">)
+{
+    </span><span class="style5">double </span><span class="style11">wynik</span><span class="style10">;
+    </span><span class="style11">wynik </span><span class="style10">= </span><span class="style11">atan2</span><span class="style10">(</span><span class="style11">del_Y</span><span class="style10">, </span><span class="style11">del_X</span><span class="style10">)*(</span><span class="style4">200</span><span class="style10">/</span><span class="style11">M_PI</span><span class="style10">);
+    </span><span class="style5">if</span><span class="style10">(</span><span class="style11">wynik</span><span class="style10">&lt;</span><span class="style4">0</span><span class="style10">)
+    {
+        </span><span class="style11">wynik</span><span class="style10">+=</span><span class="style4">400.0</span><span class="style10">;
+    }
+    </span><span class="style5">return </span><span class="style11">wynik</span><span class="style10">;
+}
+
+
+</span><span class="style5">int </span><span class="style11">main</span><span class="style10">()
+{
+    </span><span class="style2">//  for(;;){
+//Pobranie danych wejscia do programu
+    </span><span class="style5">const float  </span><span class="style11">MD </span><span class="style10">= </span><span class="style4">0.02</span><span class="style10">;
+    </span><span class="style5">const float  </span><span class="style11">MALFA </span><span class="style10">= </span><span class="style4">20</span><span class="style10">;
+    </span><span class="style5">double </span><span class="style11">dAprz</span><span class="style10">, </span><span class="style11">dBprz</span><span class="style10">, </span><span class="style11">dCprz</span><span class="style10">, </span><span class="style11">Xa</span><span class="style10">, </span><span class="style11">Ya</span><span class="style10">, </span><span class="style11">Xb</span><span class="style10">, </span><span class="style11">Yb</span><span class="style10">, </span><span class="style11">Xc</span><span class="style10">, </span><span class="style11">Yc</span><span class="style10">, </span><span class="style11">naw</span><span class="style10">, </span><span class="style11">alfa1</span><span class="style10">, </span><span class="style11">alfa2</span><span class="style10">, </span><span class="style11">alfa1_obs</span><span class="style10">, </span><span class="style11">alfa2_obs</span><span class="style10">, </span><span class="style11">beta</span><span class="style10">, </span><span class="style11">dAobs</span><span class="style10">, </span><span class="style11">dBobs</span><span class="style10">, </span><span class="style11">dCobs</span><span class="style10">;
+    </span><span class="style5">double </span><span class="style11">radAlfa1</span><span class="style10">, </span><span class="style11">radAlfa2</span><span class="style10">, </span><span class="style11">radAzPA</span><span class="style10">, </span><span class="style11">radAzPB</span><span class="style10">, </span><span class="style11">radAzPC</span><span class="style10">,  </span><span class="style11">valfa</span><span class="style10">, </span><span class="style11">vbeta</span><span class="style10">, </span><span class="style11">vdA</span><span class="style10">, </span><span class="style11">vdB</span><span class="style10">, </span><span class="style11">vdC</span><span class="style10">;
+    </span><span class="style5">char </span><span class="style11">pktP</span><span class="style10">[</span><span class="style4">10</span><span class="style10">];
+    </span><span class="style5">char </span><span class="style11">pktA</span><span class="style10">[</span><span class="style4">10</span><span class="style10">];
+    </span><span class="style5">char </span><span class="style11">pktB</span><span class="style10">[</span><span class="style4">10</span><span class="style10">];
+    </span><span class="style5">char </span><span class="style11">pktC</span><span class="style10">[</span><span class="style4">10</span><span class="style10">];
+
+    </span><span class="style11">puts</span><span class="style10">(</span><span class="style6">"Zadanie zaklada, ze pomiar katow zaczynamy od punktu jaki zostanie podany jako pierwszy"</span><span class="style10">);
+    </span><span class="style11">puts</span><span class="style10">(</span><span class="style6">"Podaj nazwe punktu wcinanego"</span><span class="style10">);
+    </span><span class="style11">gets</span><span class="style10">(</span><span class="style11">pktP</span><span class="style10">);
+    </span><span class="style11">puts</span><span class="style10">(</span><span class="style6">"Podaj numery punktow znanych:"</span><span class="style10">);
+    </span><span class="style11">gets</span><span class="style10">(</span><span class="style11">pktA</span><span class="style10">);
+    </span><span class="style11">gets</span><span class="style10">(</span><span class="style11">pktB</span><span class="style10">);
+    </span><span class="style11">gets</span><span class="style10">(</span><span class="style11">pktC</span><span class="style10">);
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj wspolrzedna X punktu %s\n"</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">Xa</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">Xa </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);   </span><span class="style2">//zabezpieczenie przed wpisywaniem liter
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">//while(getc(stdin)!='\n') {}
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj wspolrzedna Y punktu %s\n"</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">,&amp;</span><span class="style11">Ya</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">Ya </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);   </span><span class="style2">//zabezpieczenie przed wpisywaniem liter
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">//  while(getc(stdin)!='\n') {}
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj wspolrzedna X punktu %s\n"</span><span class="style10">, </span><span class="style11">pktB</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">Xb</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">Xb </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);   </span><span class="style2">//zabezpieczenie przed wpisywaniem liter
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">// while(getc(stdin)!='\n') {}
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj wspolrzedna Y punktu %s\n"</span><span class="style10">, </span><span class="style11">pktB</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">Yb</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">Yb </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);   </span><span class="style2">//zabezpieczenie przed wpisywaniem liter
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">//  while(getc(stdin)!='\n') {} //czyszczenie buforu
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj wspolrzedna X punktu %s\n"</span><span class="style10">, </span><span class="style11">pktC</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">Xc</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">Xc </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);   </span><span class="style2">//zabezpieczenie przed wpisywaniem liter
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">//  while(getc(stdin)!='\n') {}
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj wspolrzedna Y punktu %s\n"</span><span class="style10">, </span><span class="style11">pktC</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">Yc</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">Yc </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);    </span><span class="style2">//zabezpieczenie przed wpisywaniem liter
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">//  while(getc(stdin)!='\n') {}
+
+    </span><span class="style11">puts</span><span class="style10">(</span><span class="style6">"\nWspolrzedne punktow to:"</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Nr\t X\t\t Y\n %s\t %.2lf\t %.2lf\n %s\t %.2lf\t %.2lf\n %s\t %.2lf\t %.2lf\n"</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">, </span><span class="style11">Xa</span><span class="style10">, </span><span class="style11">Ya</span><span class="style10">, </span><span class="style11">pktB</span><span class="style10">, </span><span class="style11">Xb</span><span class="style10">, </span><span class="style11">Yb</span><span class="style10">, </span><span class="style11">pktC</span><span class="style10">, </span><span class="style11">Xc</span><span class="style10">, </span><span class="style11">Yc</span><span class="style10">);
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\n\nPodaj kat ustawiony na nawiazanie, czyli na punkt %s:\n"</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">naw</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">naw </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">//  while(getc(stdin)!='\n') {}
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj kat alfa1 w gradach miedzy punktem %s i %s:\n"</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">, </span><span class="style11">pktB</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">alfa1_obs</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">alfa1_obs </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">// while(getc(stdin)!='\n') {}
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj kat alfa2 w gradach miedzy punktem %s i %s:\n"</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">, </span><span class="style11">pktC</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">alfa2_obs</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">alfa2_obs </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">// while(getc(stdin)!='\n') {}
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nPodaj odleglosc z punktu wcinanego %s do %s:\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">dAobs</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">dAobs </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">//while(getc(stdin)!='\n') {}
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj odleglosc z punktu wcinanego %s do %s:\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">,  </span><span class="style11">pktB</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">dBobs</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">dBobs </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style2">// while(getc(stdin)!='\n') {}
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podaj odleglosc z punktu wcinanego %s do %s:\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">,  </span><span class="style11">pktC</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">scanf</span><span class="style10">(</span><span class="style6">"%lf"</span><span class="style10">, &amp;</span><span class="style11">dCobs</span><span class="style10">) != </span><span class="style4">1</span><span class="style10">)
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">dCobs </span><span class="style10">!= </span><span class="style4">1</span><span class="style10">)
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Podawaj tylko cyfry!\n"</span><span class="style10">);
+        </span><span class="style5">else
+            break</span><span class="style10">;
+        </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    }
+    </span><span class="style5">while</span><span class="style10">(</span><span class="style11">getc</span><span class="style10">(</span><span class="style11">stdin</span><span class="style10">)!=</span><span class="style7">'\n'</span><span class="style10">) {}
+    </span><span class="style11">alfa1</span><span class="style10">=</span><span class="style11">alfa1_obs</span><span class="style10">-</span><span class="style11">naw</span><span class="style10">;
+    </span><span class="style11">alfa2</span><span class="style10">=</span><span class="style11">alfa2_obs</span><span class="style10">-</span><span class="style11">naw</span><span class="style10">;
+    </span><span class="style11">beta</span><span class="style10">=</span><span class="style11">alfa2</span><span class="style10">-</span><span class="style11">alfa1</span><span class="style10">;
+    </span><span class="style11">radAlfa1</span><span class="style10">=</span><span class="style11">alfa1</span><span class="style10">*(</span><span class="style11">RAD</span><span class="style10">);
+    </span><span class="style11">radAlfa2</span><span class="style10">=</span><span class="style11">alfa2</span><span class="style10">*(</span><span class="style11">RAD</span><span class="style10">);
+</span><span class="style2">//    radBeta=beta*(RAD);
+
+
+
+// 1. Obliczenie wspolrzednych przyblizonych stanowiska swobodnego pojedynczego wciecia wstecz
+
+    </span><span class="style5">double </span><span class="style11">delXab</span><span class="style10">, </span><span class="style11">delYab</span><span class="style10">, </span><span class="style11">delXac</span><span class="style10">, </span><span class="style11">delYac</span><span class="style10">, </span><span class="style11">delXpa</span><span class="style10">, </span><span class="style11">delYpa</span><span class="style10">, </span><span class="style11">delXpb</span><span class="style10">, </span><span class="style11">delYpb</span><span class="style10">, </span><span class="style11">delXpc</span><span class="style10">, </span><span class="style11">delYpc</span><span class="style10">, </span><span class="style11">delXap</span><span class="style10">, </span><span class="style11">delYap</span><span class="style10">, </span><span class="style11">f1</span><span class="style10">, </span><span class="style11">f2</span><span class="style10">, </span><span class="style11">F1</span><span class="style10">, </span><span class="style11">F2</span><span class="style10">, </span><span class="style11">F0</span><span class="style10">;
+    </span><span class="style5">double </span><span class="style11">ctg_alfa1</span><span class="style10">, </span><span class="style11">ctg_alfa2</span><span class="style10">;
+
+    </span><span class="style11">delXab</span><span class="style10">=</span><span class="style11">Xb</span><span class="style10">-</span><span class="style11">Xa</span><span class="style10">;
+    </span><span class="style11">delYab</span><span class="style10">=</span><span class="style11">Yb</span><span class="style10">-</span><span class="style11">Ya</span><span class="style10">;
+    </span><span class="style11">delXac</span><span class="style10">=</span><span class="style11">Xc</span><span class="style10">-</span><span class="style11">Xa</span><span class="style10">;
+    </span><span class="style11">delYac</span><span class="style10">=</span><span class="style11">Yc</span><span class="style10">-</span><span class="style11">Ya</span><span class="style10">;
+
+    </span><span class="style5">double </span><span class="style11">tan</span><span class="style10">(</span><span class="style5">double </span><span class="style11">radAlfa1</span><span class="style10">);
+    </span><span class="style5">double </span><span class="style11">tan</span><span class="style10">(</span><span class="style5">double </span><span class="style11">radAlfa2</span><span class="style10">);
+    </span><span class="style11">ctg_alfa1</span><span class="style10">=</span><span class="style4">1</span><span class="style10">/(</span><span class="style11">tan</span><span class="style10">(</span><span class="style11">radAlfa1</span><span class="style10">));
+    </span><span class="style11">ctg_alfa2</span><span class="style10">=-(</span><span class="style4">1</span><span class="style10">/(</span><span class="style11">tan </span><span class="style10">(</span><span class="style11">radAlfa2</span><span class="style10">)));
+    </span><span class="style11">f1</span><span class="style10">=(</span><span class="style11">delXab</span><span class="style10">*</span><span class="style4">1</span><span class="style10">)-(</span><span class="style11">delYab</span><span class="style10">*</span><span class="style11">ctg_alfa1</span><span class="style10">);
+    </span><span class="style11">f2</span><span class="style10">=(</span><span class="style11">delXab</span><span class="style10">*</span><span class="style11">ctg_alfa1</span><span class="style10">)+(</span><span class="style11">delYab</span><span class="style10">*</span><span class="style4">1</span><span class="style10">);
+    </span><span class="style11">F1</span><span class="style10">=(</span><span class="style11">delXab</span><span class="style10">*</span><span class="style4">1</span><span class="style10">)-(</span><span class="style11">delYab</span><span class="style10">*</span><span class="style11">ctg_alfa1</span><span class="style10">)+(</span><span class="style11">delXac</span><span class="style10">*-</span><span class="style4">1</span><span class="style10">)-(</span><span class="style11">delYac</span><span class="style10">*</span><span class="style11">ctg_alfa2</span><span class="style10">);
+    </span><span class="style11">F2</span><span class="style10">=(</span><span class="style11">delXab</span><span class="style10">*</span><span class="style11">ctg_alfa1</span><span class="style10">)+(</span><span class="style11">delYab</span><span class="style10">*</span><span class="style4">1</span><span class="style10">)+(</span><span class="style11">delXac</span><span class="style10">*</span><span class="style11">ctg_alfa2</span><span class="style10">)+(</span><span class="style11">delYac</span><span class="style10">*-</span><span class="style4">1</span><span class="style10">);
+    </span><span class="style11">F0</span><span class="style10">=</span><span class="style11">F1</span><span class="style10">/</span><span class="style11">F2</span><span class="style10">;
+    </span><span class="style11">delXap</span><span class="style10">=((</span><span class="style11">f1</span><span class="style10">*</span><span class="style4">1</span><span class="style10">)-(</span><span class="style11">f2</span><span class="style10">*</span><span class="style11">F0</span><span class="style10">))/((</span><span class="style11">F0</span><span class="style10">*</span><span class="style11">F0</span><span class="style10">)+(</span><span class="style4">1</span><span class="style10">*</span><span class="style4">1</span><span class="style10">));
+    </span><span class="style11">delYap</span><span class="style10">=</span><span class="style11">delXap</span><span class="style10">*(-</span><span class="style11">F0</span><span class="style10">);
+
+
+    </span><span class="style11">Xprz </span><span class="style10">= </span><span class="style11">Wspolrzedne</span><span class="style10">(</span><span class="style11">delXap</span><span class="style10">, </span><span class="style11">Xa</span><span class="style10">);
+    </span><span class="style11">Yprz </span><span class="style10">= </span><span class="style11">Wspolrzedne</span><span class="style10">(</span><span class="style11">delYap</span><span class="style10">, </span><span class="style11">Ya</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nWspolrzedna przyblizona X punktu %s: %.3lf\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">Xprz</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Wspolrzedna przyblizona Y punktu %s: %.3lf\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">Yprz</span><span class="style10">);
+
+</span><span class="style2">// 2.Obliczenie przyblizonych dlugosci bokow i wspolczynnikow kierunkowych odleglosci
+
+    </span><span class="style11">delXpc</span><span class="style10">=</span><span class="style11">Xc</span><span class="style10">-</span><span class="style11">Xprz</span><span class="style10">;
+    </span><span class="style11">delYpc</span><span class="style10">=</span><span class="style11">Yc</span><span class="style10">-</span><span class="style11">Yprz</span><span class="style10">;
+    </span><span class="style11">delXpb</span><span class="style10">=</span><span class="style11">Xb</span><span class="style10">-</span><span class="style11">Xprz</span><span class="style10">;
+    </span><span class="style11">delYpb</span><span class="style10">=</span><span class="style11">Yb</span><span class="style10">-</span><span class="style11">Yprz</span><span class="style10">;
+    </span><span class="style11">delXpa</span><span class="style10">=</span><span class="style11">Xa</span><span class="style10">-</span><span class="style11">Xprz</span><span class="style10">;
+    </span><span class="style11">delYpa</span><span class="style10">=</span><span class="style11">Ya</span><span class="style10">-</span><span class="style11">Yprz</span><span class="style10">;
+    </span><span class="style2">//obliczenie odleglosci punktow na podsatwie pierwiastka z kwadratow roznicy wpsolrzednych
+    </span><span class="style11">dAprz</span><span class="style10">=</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpa</span><span class="style10">, </span><span class="style4">2</span><span class="style10">) + </span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpa</span><span class="style10">, </span><span class="style4">2</span><span class="style10">));
+    </span><span class="style11">dBprz</span><span class="style10">=</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpb</span><span class="style10">, </span><span class="style4">2</span><span class="style10">) + </span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpb</span><span class="style10">, </span><span class="style4">2</span><span class="style10">));
+    </span><span class="style11">dCprz</span><span class="style10">=</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpc</span><span class="style10">, </span><span class="style4">2</span><span class="style10">) + </span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpc</span><span class="style10">, </span><span class="style4">2</span><span class="style10">));
+</span><span class="style2">//olbiczenie roznicy na odleglosciach
+    </span><span class="style11">vdA</span><span class="style10">=</span><span class="style11">dAprz</span><span class="style10">-</span><span class="style11">dAobs</span><span class="style10">;
+    </span><span class="style11">vdB</span><span class="style10">=</span><span class="style11">dBprz</span><span class="style10">-</span><span class="style11">dBobs</span><span class="style10">;
+    </span><span class="style11">vdC</span><span class="style10">=</span><span class="style11">dCprz</span><span class="style10">-</span><span class="style11">dCobs</span><span class="style10">;
+
+    </span><span class="style11">AzPA </span><span class="style10">= </span><span class="style11">Azymut</span><span class="style10">(</span><span class="style11">delYpa</span><span class="style10">, </span><span class="style11">delXpa</span><span class="style10">);
+    </span><span class="style11">AzPB </span><span class="style10">= </span><span class="style11">Azymut</span><span class="style10">(</span><span class="style11">delYpb</span><span class="style10">, </span><span class="style11">delXpb</span><span class="style10">);
+    </span><span class="style11">AzPC </span><span class="style10">= </span><span class="style11">Azymut</span><span class="style10">(</span><span class="style11">delYpc</span><span class="style10">, </span><span class="style11">delXpc</span><span class="style10">);
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nAzymut boku %s%s wynosi: %.4lf[grad]\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">, </span><span class="style11">AzPA</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Azymut boku %s%s wynosi: %.4lf[grad]\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">pktB</span><span class="style10">, </span><span class="style11">AzPB</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Azymut boku %s%s wynosi: %.4lf[grad]\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">pktC</span><span class="style10">, </span><span class="style11">AzPC</span><span class="style10">);
+
+    </span><span class="style11">radAzPA</span><span class="style10">=</span><span class="style11">AzPA</span><span class="style10">*(</span><span class="style11">RAD</span><span class="style10">);
+    </span><span class="style11">radAzPB</span><span class="style10">=</span><span class="style11">AzPB</span><span class="style10">*(</span><span class="style11">RAD</span><span class="style10">);
+    </span><span class="style11">radAzPC</span><span class="style10">=</span><span class="style11">AzPC</span><span class="style10">*(</span><span class="style11">RAD</span><span class="style10">);
+
+</span><span class="style2">// 3. Obliczenie katow alfa i beta przyblizonych  na podstawie wpsolrzednych przyblizonych:
+
+    </span><span class="style5">double </span><span class="style11">alfa_prz</span><span class="style10">, </span><span class="style11">beta_prz</span><span class="style10">;
+    </span><span class="style11">alfa_prz</span><span class="style10">=(</span><span class="style11">AzPB</span><span class="style10">-</span><span class="style11">AzPA</span><span class="style10">);
+    </span><span class="style5">if</span><span class="style10">(</span><span class="style11">alfa_prz</span><span class="style10">&lt;</span><span class="style4">0</span><span class="style10">)
+    {
+        </span><span class="style11">alfa_prz</span><span class="style10">+=</span><span class="style4">400.0</span><span class="style10">;
+    }
+    </span><span class="style11">beta_prz</span><span class="style10">=(</span><span class="style11">AzPC</span><span class="style10">-</span><span class="style11">AzPB</span><span class="style10">);
+    </span><span class="style5">if</span><span class="style10">(</span><span class="style11">beta_prz</span><span class="style10">&lt;</span><span class="style4">0</span><span class="style10">)
+    {
+        </span><span class="style11">beta_prz</span><span class="style10">+=</span><span class="style4">400.0</span><span class="style10">;
+    }
+    </span><span class="style2">//obliczenie alfa i beta przyblizonych
+    </span><span class="style11">valfa</span><span class="style10">= (</span><span class="style11">alfa_prz</span><span class="style10">-</span><span class="style11">alfa1</span><span class="style10">)*</span><span class="style4">1000</span><span class="style10">;
+    </span><span class="style11">vbeta</span><span class="style10">= (</span><span class="style11">beta_prz</span><span class="style10">-</span><span class="style11">beta</span><span class="style10">)*</span><span class="style4">1000</span><span class="style10">;
+
+</span><span class="style2">// 4. Wspolczynniki kierunkowe dla katow przyblizonych
+
+    </span><span class="style5">double </span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">2</span><span class="style10">];
+    </span><span class="style5">double </span><span class="style11">v_alfa_dx</span><span class="style10">, </span><span class="style11">v_alfa_dy</span><span class="style10">, </span><span class="style11">v_beta_dx</span><span class="style10">, </span><span class="style11">v_beta_dy</span><span class="style10">, </span><span class="style11">v_dA_dx</span><span class="style10">, </span><span class="style11">v_dA_dy</span><span class="style10">, </span><span class="style11">v_dB_dx</span><span class="style10">, </span><span class="style11">v_dB_dy</span><span class="style10">, </span><span class="style11">v_dC_dx</span><span class="style10">, </span><span class="style11">v_dC_dy</span><span class="style10">;
+
+    </span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">] = (</span><span class="style11">delXpa</span><span class="style10">/(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpa</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpa</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)))*</span><span class="style11">RO</span><span class="style10">;
+    </span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">1</span><span class="style10">] = (</span><span class="style11">delYpa</span><span class="style10">/(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpa</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpa</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)))*</span><span class="style11">RO</span><span class="style10">;
+    </span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">] = (</span><span class="style11">delXpb</span><span class="style10">/(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpb</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpb</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)))*</span><span class="style11">RO</span><span class="style10">;
+    </span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">] = (</span><span class="style11">delYpb</span><span class="style10">/(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpb</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpb</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)))*</span><span class="style11">RO</span><span class="style10">;
+    </span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">] = (</span><span class="style11">delXpc</span><span class="style10">/(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpc</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpc</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)))*</span><span class="style11">RO</span><span class="style10">;
+    </span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">1</span><span class="style10">] = (</span><span class="style11">delYpc</span><span class="style10">/(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpc</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpc</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)))*</span><span class="style11">RO</span><span class="style10">;
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\n"</span><span class="style10">);
+    </span><span class="style1">/*
+    int ii, jj;
+    printf("Wspolczynniki kierunkowe\n");
+    for(ii=0; ii&lt;3; ii++)
+    {
+        for(jj=0; jj&lt;2; jj++)
+        {
+            printf("%.1lf ", wspol_kier[ii][jj]);
+        }
+        printf("\n");
+    }
+    */
+</span><span class="style2">//printf("\nWspolczynniki kierunkowe:\n %.2lf\t %.2lf\n%.2lf\t %.2lf\n%.2lf\t%.2lf\n", wsPAa, wsPAb, wsPBa, wsPBb, wsPCa, wsPCb);
+
+    </span><span class="style11">v_alfa_dx</span><span class="style10">=-(</span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]-</span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]);
+    </span><span class="style11">v_alfa_dy</span><span class="style10">=-(</span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]-</span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]);
+    </span><span class="style11">v_beta_dx</span><span class="style10">=-(</span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]-</span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]);
+    </span><span class="style11">v_beta_dy</span><span class="style10">=-(</span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]-</span><span class="style11">wspol_kier</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]);
+    </span><span class="style11">v_dA_dx</span><span class="style10">=-(</span><span class="style11">cos</span><span class="style10">(</span><span class="style11">radAzPA</span><span class="style10">));
+    </span><span class="style11">v_dA_dy</span><span class="style10">=-(</span><span class="style11">sin</span><span class="style10">(</span><span class="style11">radAzPA</span><span class="style10">));
+    </span><span class="style11">v_dB_dx</span><span class="style10">=-(</span><span class="style11">cos</span><span class="style10">(</span><span class="style11">radAzPB</span><span class="style10">));
+    </span><span class="style11">v_dB_dy</span><span class="style10">=-(</span><span class="style11">sin</span><span class="style10">(</span><span class="style11">radAzPB</span><span class="style10">));
+    </span><span class="style11">v_dC_dx</span><span class="style10">=-(</span><span class="style11">cos</span><span class="style10">(</span><span class="style11">radAzPC</span><span class="style10">));
+    </span><span class="style11">v_dC_dy</span><span class="style10">=-(</span><span class="style11">sin</span><span class="style10">(</span><span class="style11">radAzPC</span><span class="style10">));
+
+</span><span class="style2">//printf("\nWspolczynniki poprawek dla katow:\n %.3lf\t %.3lf\n %.3lf %.3lf\n", v_alfa_dx, v_alfa_dy, v_beta_dx, v_beta_dy);
+//printf("\nWspolczynniki poprawek dla odleglosci:\n %.3lf\t %.3lf\n %.3lf\t %.3lf\n %.3lf\t %.3lf\n",
+    //  v_dA_dx, v_dA_dy, v_dB_dx, v_dB_dy, v_dC_dx, v_dC_dy);
+
+    </span><span class="style5">double </span><span class="style11">A</span><span class="style10">[</span><span class="style4">5</span><span class="style10">][</span><span class="style4">2</span><span class="style10">];
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">v_alfa_dy</span><span class="style10">/</span><span class="style11">MALFA</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]=-(</span><span class="style11">v_alfa_dx</span><span class="style10">)/</span><span class="style11">MALFA</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">v_beta_dy</span><span class="style10">/</span><span class="style11">MALFA</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]=-(</span><span class="style11">v_beta_dx</span><span class="style10">)/</span><span class="style11">MALFA</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">v_dA_dx</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]=</span><span class="style11">v_dA_dy</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">v_dB_dx</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]=</span><span class="style11">v_dB_dy</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">v_dC_dx</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">A</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]=</span><span class="style11">v_dC_dy</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+
+    </span><span class="style5">double </span><span class="style11">L</span><span class="style10">[</span><span class="style4">5</span><span class="style10">][</span><span class="style4">1</span><span class="style10">];
+    </span><span class="style11">L</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">valfa</span><span class="style10">/</span><span class="style11">MALFA</span><span class="style10">;
+    </span><span class="style11">L</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">vbeta</span><span class="style10">/</span><span class="style11">MALFA</span><span class="style10">;
+    </span><span class="style11">L</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">vdA</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">L</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">vdB</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">L</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">vdC</span><span class="style10">/</span><span class="style11">MD</span><span class="style10">;
+
+    </span><span class="style5">double </span><span class="style11">AT</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">5</span><span class="style10">];
+    </span><span class="style2">//transnponwanie tablicy
+    </span><span class="style5">int </span><span class="style11">o</span><span class="style10">, </span><span class="style11">p</span><span class="style10">;
+    </span><span class="style5">for</span><span class="style10">(</span><span class="style11">o</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">o</span><span class="style10">&lt;</span><span class="style4">5</span><span class="style10">; </span><span class="style11">o</span><span class="style10">++)
+    {
+        </span><span class="style5">for</span><span class="style10">(</span><span class="style11">p</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">p</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">p</span><span class="style10">++)
+        {
+            </span><span class="style11">AT</span><span class="style10">[</span><span class="style11">p</span><span class="style10">][</span><span class="style11">o</span><span class="style10">] = </span><span class="style11">A</span><span class="style10">[</span><span class="style11">o</span><span class="style10">][</span><span class="style11">p</span><span class="style10">];
+        }
+    }
+    </span><span class="style2">//zerowanie tablicy
+    //for(i=0; i&lt;N; i++)
+    // for(j=0; j&lt;K; j++)
+    // C[i][j]=0;
+
+
+//mnożenie macierzy AT*A
+
+    </span><span class="style5">int </span><span class="style11">i</span><span class="style10">, </span><span class="style11">j</span><span class="style10">, </span><span class="style11">k</span><span class="style10">, </span><span class="style11">l</span><span class="style10">, </span><span class="style11">m</span><span class="style10">, </span><span class="style11">n</span><span class="style10">;
+    </span><span class="style5">double </span><span class="style11">mac_n</span><span class="style10">, </span><span class="style11">atam</span><span class="style10">, </span><span class="style11">detA</span><span class="style10">, </span><span class="style11">N</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">2</span><span class="style10">], </span><span class="style11">ATAD</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">2</span><span class="style10">], </span><span class="style11">N_minus1</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">2</span><span class="style10">], </span><span class="style11">ATL</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">1</span><span class="style10">], </span><span class="style11">DELTY</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">1</span><span class="style10">];
+    </span><span class="style5">for</span><span class="style10">(</span><span class="style11">i</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">i</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">i</span><span class="style10">++)
+    {
+        </span><span class="style5">for</span><span class="style10">(</span><span class="style11">j</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">j</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">j</span><span class="style10">++)
+        {
+            </span><span class="style11">mac_n</span><span class="style10">=</span><span class="style4">0</span><span class="style10">;
+            </span><span class="style5">for</span><span class="style10">(</span><span class="style11">k</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">k</span><span class="style10">&lt;</span><span class="style4">5</span><span class="style10">; </span><span class="style11">k</span><span class="style10">++)
+            {
+                </span><span class="style11">mac_n</span><span class="style10">=</span><span class="style11">mac_n</span><span class="style10">+</span><span class="style11">AT</span><span class="style10">[</span><span class="style11">i</span><span class="style10">][</span><span class="style11">k</span><span class="style10">]*</span><span class="style11">A</span><span class="style10">[</span><span class="style11">k</span><span class="style10">][</span><span class="style11">j</span><span class="style10">];
+            }
+            </span><span class="style11">N</span><span class="style10">[</span><span class="style11">i</span><span class="style10">][</span><span class="style11">j</span><span class="style10">]=</span><span class="style11">mac_n</span><span class="style10">;
+        }
+    }
+
+</span><span class="style2">//obliczenie macierzy odwrotnej ATAminus1
+    </span><span class="style11">detA</span><span class="style10">=((</span><span class="style11">N</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">])*(</span><span class="style11">N</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]))-((</span><span class="style11">N</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">1</span><span class="style10">])*(</span><span class="style11">N</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]));
+    </span><span class="style5">if </span><span class="style10">(</span><span class="style11">detA</span><span class="style10">==</span><span class="style4">0</span><span class="style10">)
+    {
+        </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Nie mozna wyznaczyc macierzy odwrotnej poniewaz, wyznacznik jest rowny 0\n"</span><span class="style10">);
+    }
+    </span><span class="style5">else
+    </span><span class="style10">{
+        </span><span class="style2">//macierz dopelnien algebraicznych
+        </span><span class="style11">ATAD</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">pow</span><span class="style10">(-</span><span class="style4">1</span><span class="style10">, </span><span class="style4">1</span><span class="style10">+</span><span class="style4">1</span><span class="style10">)*</span><span class="style11">N</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">];
+        </span><span class="style11">ATAD</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]=</span><span class="style11">pow</span><span class="style10">(-</span><span class="style4">1</span><span class="style10">, </span><span class="style4">2</span><span class="style10">+</span><span class="style4">1</span><span class="style10">)*</span><span class="style11">N</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">1</span><span class="style10">];
+        </span><span class="style11">ATAD</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">pow</span><span class="style10">(-</span><span class="style4">1</span><span class="style10">, </span><span class="style4">1</span><span class="style10">+</span><span class="style4">2</span><span class="style10">)*</span><span class="style11">N</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+        </span><span class="style11">ATAD</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]=</span><span class="style11">pow</span><span class="style10">(-</span><span class="style4">1</span><span class="style10">, </span><span class="style4">2</span><span class="style10">+</span><span class="style4">2</span><span class="style10">)*</span><span class="style11">N</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+        </span><span class="style5">for</span><span class="style10">(</span><span class="style11">m</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">m</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">m</span><span class="style10">++)
+        {
+            </span><span class="style5">for</span><span class="style10">(</span><span class="style11">n</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">n</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">n</span><span class="style10">++)
+            {
+                </span><span class="style11">atam</span><span class="style10">=</span><span class="style4">0</span><span class="style10">;
+                </span><span class="style5">for</span><span class="style10">(</span><span class="style11">l</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">l</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">l</span><span class="style10">++)
+                {
+                    </span><span class="style11">atam</span><span class="style10">=</span><span class="style11">atam</span><span class="style10">+</span><span class="style11">ATAD</span><span class="style10">[</span><span class="style11">m</span><span class="style10">][</span><span class="style11">n</span><span class="style10">]*(</span><span class="style4">0.5</span><span class="style10">/(</span><span class="style11">detA</span><span class="style10">));
+                }
+                </span><span class="style11">N_minus1</span><span class="style10">[</span><span class="style11">m</span><span class="style10">][</span><span class="style11">n</span><span class="style10">]=</span><span class="style11">atam</span><span class="style10">;
+            }
+        }
+    }
+    </span><span class="style2">//obliczenie macierzy AT*L
+    </span><span class="style5">for</span><span class="style10">(</span><span class="style11">i</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">i</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">i</span><span class="style10">++)
+    {
+        </span><span class="style5">for</span><span class="style10">(</span><span class="style11">j</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">j</span><span class="style10">&lt;</span><span class="style4">1</span><span class="style10">; </span><span class="style11">j</span><span class="style10">++)
+        {
+            </span><span class="style11">mac_n</span><span class="style10">=</span><span class="style4">0</span><span class="style10">;
+            </span><span class="style5">for</span><span class="style10">(</span><span class="style11">k</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">k</span><span class="style10">&lt;</span><span class="style4">5</span><span class="style10">; </span><span class="style11">k</span><span class="style10">++)
+            {
+                </span><span class="style11">mac_n</span><span class="style10">=</span><span class="style11">mac_n</span><span class="style10">+</span><span class="style11">AT</span><span class="style10">[</span><span class="style11">i</span><span class="style10">][</span><span class="style11">k</span><span class="style10">]*</span><span class="style11">L</span><span class="style10">[</span><span class="style11">k</span><span class="style10">][</span><span class="style11">j</span><span class="style10">];
+            }
+            </span><span class="style11">ATL</span><span class="style10">[</span><span class="style11">i</span><span class="style10">][</span><span class="style11">j</span><span class="style10">]=</span><span class="style11">mac_n</span><span class="style10">;
+        }
+    }
+    </span><span class="style2">//obliczenie macierzy x*-1 = DELTY
+
+    </span><span class="style5">for</span><span class="style10">(</span><span class="style11">i</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">i</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">i</span><span class="style10">++)
+    {
+        </span><span class="style5">for</span><span class="style10">(</span><span class="style11">j</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">j</span><span class="style10">&lt;</span><span class="style4">1</span><span class="style10">; </span><span class="style11">j</span><span class="style10">++)
+        {
+            </span><span class="style11">mac_n</span><span class="style10">=</span><span class="style4">0</span><span class="style10">;
+            </span><span class="style5">for</span><span class="style10">(</span><span class="style11">k</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">k</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">k</span><span class="style10">++)
+            {
+                </span><span class="style11">mac_n</span><span class="style10">=</span><span class="style11">mac_n</span><span class="style10">+</span><span class="style11">N_minus1</span><span class="style10">[</span><span class="style11">i</span><span class="style10">][</span><span class="style11">k</span><span class="style10">]*</span><span class="style11">ATL</span><span class="style10">[</span><span class="style11">k</span><span class="style10">][</span><span class="style11">j</span><span class="style10">];
+            }
+            </span><span class="style11">DELTY</span><span class="style10">[</span><span class="style11">i</span><span class="style10">][</span><span class="style11">j</span><span class="style10">]=</span><span class="style11">mac_n</span><span class="style10">;
+        }
+    }
+
+    </span><span class="style5">for</span><span class="style10">(</span><span class="style11">i</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">i</span><span class="style10">&lt;</span><span class="style4">2</span><span class="style10">; </span><span class="style11">i</span><span class="style10">++)
+    {
+        </span><span class="style5">for</span><span class="style10">(</span><span class="style11">j</span><span class="style10">=</span><span class="style4">0</span><span class="style10">; </span><span class="style11">j</span><span class="style10">&lt;</span><span class="style4">1</span><span class="style10">; </span><span class="style11">j</span><span class="style10">++)
+        {
+            </span><span class="style11">DELTY</span><span class="style10">[</span><span class="style11">i</span><span class="style10">][</span><span class="style11">j</span><span class="style10">]=</span><span class="style11">DELTY</span><span class="style10">[</span><span class="style11">i</span><span class="style10">][</span><span class="style11">j</span><span class="style10">]*-</span><span class="style4">1</span><span class="style10">;
+        }
+    }
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Poprawka dla wspolrzednej X wynosi: %+.3lf\n"</span><span class="style10">, </span><span class="style11">DELTY</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Poprawka dla wspolrzednej Y wynosi: %+.3lf\n"</span><span class="style10">, </span><span class="style11">DELTY</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]);
+
+
+    </span><span class="style11">deltX</span><span class="style10">=</span><span class="style11">DELTY</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">deltY</span><span class="style10">=</span><span class="style11">DELTY</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+
+    </span><span class="style5">double </span><span class="style11">mx</span><span class="style10">, </span><span class="style11">my</span><span class="style10">, </span><span class="style11">m0</span><span class="style10">, </span><span class="style11">mp</span><span class="style10">, </span><span class="style11">VV</span><span class="style10">, </span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">5</span><span class="style10">][</span><span class="style4">1</span><span class="style10">], </span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">5</span><span class="style10">][</span><span class="style4">1</span><span class="style10">], </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">5</span><span class="style10">][</span><span class="style4">1</span><span class="style10">], </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">5</span><span class="style10">][</span><span class="style4">1</span><span class="style10">];
+    </span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">deltX</span><span class="style10">)+(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]*</span><span class="style11">deltY</span><span class="style10">)+</span><span class="style11">L</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">deltX</span><span class="style10">)+(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]*</span><span class="style11">deltY</span><span class="style10">)+</span><span class="style11">L</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">deltX</span><span class="style10">)+(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]*</span><span class="style11">deltY</span><span class="style10">)+</span><span class="style11">L</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">deltX</span><span class="style10">)+(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]*</span><span class="style11">deltY</span><span class="style10">)+</span><span class="style11">L</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">deltX</span><span class="style10">)+(</span><span class="style11">A</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]*</span><span class="style11">deltY</span><span class="style10">)+</span><span class="style11">L</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+
+    </span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">MALFA</span><span class="style10">*</span><span class="style4">0.0001</span><span class="style10">;
+    </span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">MALFA</span><span class="style10">*</span><span class="style4">0.0001</span><span class="style10">;
+    </span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">MD</span><span class="style10">;
+    </span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]*</span><span class="style11">MD</span><span class="style10">;
+
+    </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">alfa1</span><span class="style10">+</span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">beta</span><span class="style10">+</span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">dAobs</span><span class="style10">+</span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">dBobs</span><span class="style10">+</span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+    </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">dCobs</span><span class="style10">+</span><span class="style11">poprawkiv</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">];
+
+    </span><span class="style11">X </span><span class="style10">= </span><span class="style11">Wspolrzedne</span><span class="style10">(</span><span class="style11">Xprz</span><span class="style10">, </span><span class="style11">deltX</span><span class="style10">);
+    </span><span class="style11">Y </span><span class="style10">= </span><span class="style11">Wspolrzedne</span><span class="style10">(</span><span class="style11">Yprz</span><span class="style10">, </span><span class="style11">deltY</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"====================================================\n"</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nWspolrzedna wyrownana X punktu %s wynosi:\t %.3lf\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">X</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nWspolrzedna wyrownana Y punktu %s wynosi:\t %.3lf\n"</span><span class="style10">, </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">Y</span><span class="style10">);
+
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"====================================================\n"</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Kontrola\n"</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"================================\n"</span><span class="style10">);
+
+    </span><span class="style5">double </span><span class="style11">AzWPA</span><span class="style10">, </span><span class="style11">AzWPC</span><span class="style10">, </span><span class="style11">AzWPB</span><span class="style10">;
+    </span><span class="style2">//zmianan wartosci delt
+    </span><span class="style11">delXpc</span><span class="style10">=</span><span class="style11">Xc</span><span class="style10">-</span><span class="style11">X</span><span class="style10">;
+    </span><span class="style11">delYpc</span><span class="style10">=</span><span class="style11">Yc</span><span class="style10">-</span><span class="style11">Y</span><span class="style10">;
+    </span><span class="style11">delXpb</span><span class="style10">=</span><span class="style11">Xb</span><span class="style10">-</span><span class="style11">X</span><span class="style10">;
+    </span><span class="style11">delYpb</span><span class="style10">=</span><span class="style11">Yb</span><span class="style10">-</span><span class="style11">Y</span><span class="style10">;
+    </span><span class="style11">delXpa</span><span class="style10">=</span><span class="style11">Xa</span><span class="style10">-</span><span class="style11">X</span><span class="style10">;
+    </span><span class="style11">delYpa</span><span class="style10">=</span><span class="style11">Ya</span><span class="style10">-</span><span class="style11">Y</span><span class="style10">;
+
+    </span><span class="style11">AzWPA </span><span class="style10">= </span><span class="style11">Azymut</span><span class="style10">(</span><span class="style11">delYpa</span><span class="style10">,</span><span class="style11">delXpa</span><span class="style10">);
+    </span><span class="style11">AzWPB </span><span class="style10">= </span><span class="style11">Azymut</span><span class="style10">(</span><span class="style11">delYpb</span><span class="style10">,</span><span class="style11">delXpb</span><span class="style10">);
+    </span><span class="style11">AzWPC </span><span class="style10">= </span><span class="style11">Azymut</span><span class="style10">(</span><span class="style11">delYpc</span><span class="style10">,</span><span class="style11">delXpc</span><span class="style10">);
+    </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">AzWPB</span><span class="style10">-</span><span class="style11">AzWPA</span><span class="style10">;
+    </span><span class="style5">if</span><span class="style10">(</span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]&lt;</span><span class="style4">0</span><span class="style10">)
+    {
+        </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]+=</span><span class="style4">400.0</span><span class="style10">;
+    }
+
+    </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">AzWPC</span><span class="style10">-</span><span class="style11">AzWPB</span><span class="style10">;
+    </span><span class="style5">if</span><span class="style10">(</span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]&lt;</span><span class="style4">0</span><span class="style10">)
+    {
+        </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]+=</span><span class="style4">400.0</span><span class="style10">;
+    }
+    </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpa</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpa</span><span class="style10">, </span><span class="style4">2</span><span class="style10">));
+    </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpb</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpb</span><span class="style10">, </span><span class="style4">2</span><span class="style10">));
+    </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]=</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delXpc</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">delYpc</span><span class="style10">, </span><span class="style4">2</span><span class="style10">));
+
+    </span><span class="style11">VV</span><span class="style10">=</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style4">2</span><span class="style10">)+</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">poprawkiV</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style4">2</span><span class="style10">);
+    </span><span class="style11">m0</span><span class="style10">=</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">VV</span><span class="style10">/(</span><span class="style4">5</span><span class="style10">-</span><span class="style4">2</span><span class="style10">));
+    </span><span class="style11">mx</span><span class="style10">=(</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">N_minus1</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]))*</span><span class="style11">m0</span><span class="style10">;
+    </span><span class="style11">my</span><span class="style10">=(</span><span class="style11">sqrt</span><span class="style10">(</span><span class="style11">N_minus1</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">1</span><span class="style10">]))*</span><span class="style11">m0</span><span class="style10">;
+    </span><span class="style11">mp</span><span class="style10">=</span><span class="style11">sqrt</span><span class="style10">((</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">mx</span><span class="style10">, </span><span class="style4">2</span><span class="style10">))+(</span><span class="style11">pow</span><span class="style10">(</span><span class="style11">my</span><span class="style10">, </span><span class="style4">2</span><span class="style10">)));
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Obserwacja wyrownana:\n%.4lf[grad]\n%.4lf[grad]\n%.3lf[m]\n%.3f[m]\n%.3lf[m]\n"</span><span class="style10">, </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style11">Liv</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nObserwacja ze wspolrzednych:\n%.4lf[grad]\n%.4lf[grad]\n%.3lf[m]\n%.3f[m]\n%.3lf[m]\n"</span><span class="style10">, </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">0</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">1</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">2</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">3</span><span class="style10">][</span><span class="style4">0</span><span class="style10">], </span><span class="style11">obswsp</span><span class="style10">[</span><span class="style4">4</span><span class="style10">][</span><span class="style4">0</span><span class="style10">]);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"================================\n"</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nOcena dokladnosci\n"</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"m0: +-%.4lf\n"</span><span class="style10">, </span><span class="style11">m0</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"mx: +-%.4lf\n"</span><span class="style10">, </span><span class="style11">mx</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"my: +-%.4lf\n"</span><span class="style10">, </span><span class="style11">my</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Blad punktu po wyrownaniu mp: +-%.4lf\n"</span><span class="style10">, </span><span class="style11">mp</span><span class="style10">);
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"================================\n"</span><span class="style10">);
+
+
+
+    </span><span class="style5">char </span><span class="style11">wybor</span><span class="style10">;
+    </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"Czy chcesz wygenerowac raport  wyrownania? t/n\n"</span><span class="style10">);
+    </span><span class="style5">while</span><span class="style10">((</span><span class="style11">wybor</span><span class="style10">=</span><span class="style11">getche</span><span class="style10">()))
+    {
+        </span><span class="style5">if</span><span class="style10">(</span><span class="style11">wybor</span><span class="style10">==</span><span class="style7">'t'</span><span class="style10">)
+        {
+            </span><span class="style11">FILE </span><span class="style10">*</span><span class="style11">plik</span><span class="style10">;
+            </span><span class="style11">plik</span><span class="style10">=</span><span class="style11">fopen</span><span class="style10">(</span><span class="style11">RAPORT</span><span class="style10">, </span><span class="style6">"w"</span><span class="style10">);
+
+            </span><span class="style2">//zapis do pliku
+
+            </span><span class="style11">fprintf</span><span class="style10">(</span><span class="style11">plik</span><span class="style10">, </span><span class="style6">"\n\t\tOBLICZENIE WSPOLRZEDNYCH PUNKTU POMIERZONEGO METODA STANOWISKA SWOBODNEGO\n\nNr punktu: %s\tX: %.3lf\tY: %.3lf\nBład punktu po wyrownaniu: %+.4lf\n\n Nr\t    X\t\t    Y\t\t Kierunek\tOdleglosc\t Blad kata\t Blad odleglosci\n %s\t %4.2lf\t %4.2lf\t %3.4lf\t\t %3.2lf\t\t %.4lf\t\t %.2lf\n %s\t %4.2lf\t %4.2lf\t %3.4lf\t %3.2lf\t\t %.4lf\t\t %.2lf\n %s\t %4.2lf\t %4.2lf\t %3.4lf\t %3.2lf\t\t %.4lf\t\t %.2lf\n"</span><span class="style10">,
+                    </span><span class="style11">pktP</span><span class="style10">, </span><span class="style11">X</span><span class="style10">, </span><span class="style11">Y</span><span class="style10">, </span><span class="style11">mp</span><span class="style10">, </span><span class="style11">pktA</span><span class="style10">, </span><span class="style11">Xa</span><span class="style10">, </span><span class="style11">Ya</span><span class="style10">, </span><span class="style11">naw</span><span class="style10">, </span><span class="style11">dAobs</span><span class="style10">, </span><span class="style11">MALFA</span><span class="style10">/</span><span class="style4">10000</span><span class="style10">, </span><span class="style11">MD</span><span class="style10">, </span><span class="style11">pktB</span><span class="style10">, </span><span class="style11">Xb</span><span class="style10">, </span><span class="style11">Yb</span><span class="style10">, </span><span class="style11">alfa1</span><span class="style10">, </span><span class="style11">dBobs</span><span class="style10">, </span><span class="style11">MALFA</span><span class="style10">/</span><span class="style4">10000</span><span class="style10">, </span><span class="style11">MD</span><span class="style10">, </span><span class="style11">pktC</span><span class="style10">, </span><span class="style11">Xc</span><span class="style10">, </span><span class="style11">Yc</span><span class="style10">, </span><span class="style11">alfa2_obs</span><span class="style10">, </span><span class="style11">dCobs</span><span class="style10">, </span><span class="style11">MALFA</span><span class="style10">/</span><span class="style4">10000</span><span class="style10">, </span><span class="style11">MD</span><span class="style10">);
+            </span><span class="style11">fclose</span><span class="style10">(</span><span class="style11">plik</span><span class="style10">);
+            </span><span class="style5">break</span><span class="style10">;
+        }
+        </span><span class="style5">else if</span><span class="style10">((</span><span class="style11">wybor</span><span class="style10">!=</span><span class="style7">'t'</span><span class="style10">)&amp;&amp;(</span><span class="style11">wybor</span><span class="style10">!=</span><span class="style7">'n'</span><span class="style10">))
+        {
+            </span><span class="style11">printf</span><span class="style10">(</span><span class="style6">"\nJeszcze raz!\n"</span><span class="style10">);
+            </span><span class="style5">continue</span><span class="style10">;
+        }
+        </span><span class="style5">else if</span><span class="style10">(</span><span class="style11">wybor</span><span class="style10">==</span><span class="style7">'n'</span><span class="style10">)
+        {
+            </span><span class="style5">break</span><span class="style10">;
+        }
+    }
+    </span><span class="style11">puts</span><span class="style10">(</span><span class="style6">"\nNacisnij dowolny klawisz aby wyjsc..."</span><span class="style10">);
+    </span><span class="style11">getch</span><span class="style10">();
+
+</span><span class="style2">//   }
+    </span><span class="style5">return </span><span class="style4">0</span><span class="style10">;
+}</span></span>
+</code></pre>
+</body>
+</html>
